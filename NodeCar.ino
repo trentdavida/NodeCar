@@ -7,6 +7,9 @@
 #include <ESP8266mDNS.h>
 #include <Hash.h>
 
+#define SSID "<YOUR-WIFI-SSID>"
+#define PASSKEY "<YOUR-WIFI-KEY>"
+
 #define LEFT  D1
 #define L0    D7
 #define L1    D8
@@ -112,9 +115,9 @@ void setup() {
     analogWrite(LEFT, 0);
     analogWrite(RIGHT, 0);
 
-    WiFiMulti.addAP("Halo", "wearehome");
+    WiFiMulti.addAP(SSID, PASSKEY);
 
-    while(WiFiMulti.run() != WL_CONNECTED) {
+    while(WiFiMulti.run() != WL_CONNECTED && millis() < 5000) {
         delay(100);
     }
 
