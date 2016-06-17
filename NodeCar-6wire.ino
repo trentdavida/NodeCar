@@ -7,8 +7,8 @@
 #include <ESP8266mDNS.h>
 #include <Hash.h>
 
-#define SSID "<YOUR-WIFI-SSID>"
-#define PASSKEY "<YOUR-WIFI-KEY>"
+#define WifiSSID "<YOUR-WIFI-SSID>"
+#define WifiPASS "<YOUR-WIFI-KEY>"
 
 #define RIGHT D0
 #define R0    D5
@@ -89,10 +89,6 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
 
 }
 
-void setupWifi(String ssid, String passkey) {
-    WiFiMulti.addAP(ssid, passkey);
-}
-
 void setup() {
     //USE_SERIAL.begin(921600);
     USE_SERIAL.begin(115200);
@@ -119,7 +115,7 @@ void setup() {
     analogWrite(LEFT, 0);
     analogWrite(RIGHT, 0);
 
-    setupWifi(SSID, PASSKEY);
+    WiFiMulti.addAP(WifiSSID, WifiPASS);
 
     while(WiFiMulti.run() != WL_CONNECTED && millis() < 5000) {
         delay(100);
