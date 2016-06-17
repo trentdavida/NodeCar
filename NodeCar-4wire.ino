@@ -29,23 +29,23 @@ void Set_Speed(String MOTOR, int SPEED) {
       
         if(SPEED >= 0) {
             USE_SERIAL.printf("Left Forward!\n");
-            digitalWrite(LEFT-REVERSE, LOW);
-            analogWrite(LEFT-FORWARD, SPEED);
+            digitalWrite(LEFT_REVERSE, LOW);
+            analogWrite(LEFT_FORWARD, SPEED);
         } else {
            USE_SERIAL.printf("Left Reverse!\n");
-           digitalWrite(LEFT-FORWARD, LOW);
-           digitalWrite(LEFT-REVERSE, SPEED * -1);
+           digitalWrite(LEFT_FORWARD, LOW);
+           digitalWrite(LEFT_REVERSE, SPEED * -1);
         }
       } else if(MOTOR == "right") {
       
         if(SPEED >= 0) {
             USE_SERIAL.printf("Right Forward!\n");
-            digitalWrite(RIGHT-REVERSE, LOW);
-            analogWrite(RIGHT-FORWARD, SPEED);
+            digitalWrite(RIGHT_REVERSE, LOW);
+            analogWrite(RIGHT_FORWARD, SPEED);
         } else {
            USE_SERIAL.printf("Right Reverse!\n");
-           digitalWrite(RIGHT-FORWARD, LOW);
-           digitalWrite(RIGHT-REVERSE, SPEED * -1);
+           digitalWrite(RIGHT_FORWARD, LOW);
+           digitalWrite(RIGHT_REVERSE, SPEED * -1);
         }
     }
 }
@@ -101,15 +101,15 @@ void setup() {
         delay(1000);
     }
 
-    pinMode(LEFT, OUTPUT);
-    pinMode(L0, OUTPUT);
-    pinMode(L1, OUTPUT);
-    pinMode(RIGHT, OUTPUT);
-    pinMode(R0, OUTPUT);
-    pinMode(R1, OUTPUT);
+    pinMode(LEFT_FORWARD, OUTPUT);
+    pinMode(LEFT_REVERSE, OUTPUT);
+    pinMode(RIGHT_FORWARD, OUTPUT);
+    pinMode(RIGHT_REVERSE, OUTPUT);
 
-    analogWrite(LEFT, 0);
-    analogWrite(RIGHT, 0);
+    analogWrite(LEFT-FORWARD, 0);
+    analogWrite(LEFT-REVERSE, 0);
+    analogWrite(RIGHT-FORWARD, 0);
+    analogWrite(RIGHT-REVERSE, 0);
 
     setupWifi(SSID, PASSKEY);
 
