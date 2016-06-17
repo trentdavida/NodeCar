@@ -106,10 +106,10 @@ void setup() {
     pinMode(RIGHT_FORWARD, OUTPUT);
     pinMode(RIGHT_REVERSE, OUTPUT);
 
-    analogWrite(LEFT-FORWARD, 0);
-    analogWrite(LEFT-REVERSE, 0);
-    analogWrite(RIGHT-FORWARD, 0);
-    analogWrite(RIGHT-REVERSE, 0);
+    analogWrite(LEFT_FORWARD, 0);
+    analogWrite(LEFT_REVERSE, 0);
+    analogWrite(RIGHT_FORWARD, 0);
+    analogWrite(RIGHT_REVERSE, 0);
 
     setupWifi(SSID, PASSKEY);
 
