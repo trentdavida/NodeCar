@@ -10,11 +10,11 @@
 #define WifiSSID "<YOUR-WIFI-SSID>"
 #define WifiPASS "<YOUR-WIFI-KEY>"
 
-#define LEFT_FORWARD  D1
-#define LEFT_REVERSE  D3
+#define LEFT_PWM  D1
+#define LEFT_DIR  D3
 
-#define RIGHT_FORWARD D2
-#define RIGHT_REVERSE D4
+#define RIGHT_PWM D2
+#define RIGHT_DIR D4
 
 #define USE_SERIAL Serial
 
@@ -24,29 +24,20 @@ ESP8266WebServer server = ESP8266WebServer(80);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
 void Set_Speed(String MOTOR, int SPEED) {
-    USE_SERIAL.printf("[%u] Speed!\n", SPEED);
+    int dir = 1;
+    if(SPEED < 0) {
+        dir = 0;
+        SPEED = SPEED * -1;
+    }
+
     if(MOTOR == "left") {
-      
-        if(SPEED >= 0) {
-            USE_SERIAL.printf("Left Forward!\n");
-            digitalWrite(LEFT_REVERSE, LOW);
-            analogWrite(LEFT_FORWARD, SPEED);
-        } else {
-           USE_SERIAL.printf("Left Reverse!\n");
-           digitalWrite(LEFT_FORWARD, LOW);
-           digitalWrite(LEFT_REVERSE, SPEED * -1);
-        }
-      } else if(MOTOR == "right") {
-      
-        if(SPEED >= 0) {
-            USE_SERIAL.printf("Right Forward!\n");
-            digitalWrite(RIGHT_REVERSE, LOW);
-            analogWrite(RIGHT_FORWARD, SPEED);
-        } else {
-           USE_SERIAL.printf("Right Reverse!\n");
-           digitalWrite(RIGHT_FORWARD, LOW);
-           digitalWrite(RIGHT_REVERSE, SPEED * -1);
-        }
+        USE_SERIAL.printf("Left - Speed: %u Direction %u \n", SPEED, dir);
+        digitalWrite(LEFT_DIR, dir);
+        analogWrite(LEFT_PWM, SPEED);
+    } else if(MOTOR == "right") {  
+        USE_SERIAL.printf("Right - Speed: %u Direction %u \n", SPEED, dir);
+        digitalWrite(RIGHT_DIR, dir);
+        analogWrite(RIGHT_PWM, SPEED);
     }
 }
 
@@ -97,15 +88,15 @@ void setup() {
         delay(1000);
     }
 
-    pinMode(LEFT_FORWARD, OUTPUT);
-    pinMode(LEFT_REVERSE, OUTPUT);
-    pinMode(RIGHT_FORWARD, OUTPUT);
-    pinMode(RIGHT_REVERSE, OUTPUT);
+    pinMode(LEFT_PWM, OUTPUT);
+    pinMode(LEFT_DIR, OUTPUT);
+    pinMode(RIGHT_PWM, OUTPUT);
+    pinMode(RIGHT_DIR, OUTPUT);
 
-    analogWrite(LEFT_FORWARD, 0);
-    analogWrite(LEFT_REVERSE, 0);
-    analogWrite(RIGHT_FORWARD, 0);
-    analogWrite(RIGHT_REVERSE, 0);
+    analogWrite(LEFT_PWM, 0);
+    analogWrite(RIGHT_PWM, 0);
+    digitalWrite(LEFT_DIR, 0);
+    digitalWrite(RIGHT_DIR, 0);
 
     WiFiMulti.addAP(WifiSSID, WifiPASS);
 
