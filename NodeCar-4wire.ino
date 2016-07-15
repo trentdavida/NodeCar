@@ -24,9 +24,9 @@ ESP8266WebServer server = ESP8266WebServer(80);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
 void Set_Speed(String MOTOR, int SPEED) {
-    int dir = 1;
+    int dir = 0;
     if(SPEED < 0) {
-        dir = 0;
+        dir = 1;
         SPEED = SPEED * -1;
     }
 
