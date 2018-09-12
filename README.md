@@ -2,7 +2,7 @@
 ESP8266-12E NodeMCU and L298N Dual Motor Controller
 
 ## Setup
-Connect power the the Motor Controller:
+Connect power to the Motor Controller:
  - Do not exceed 12v to protect the 5v adapter
  
 Connect the motors to the motor controller:
