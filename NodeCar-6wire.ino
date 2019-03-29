@@ -22,7 +22,7 @@
 
 ESP8266WiFiMulti WiFiMulti;
 
-ESP8266WebServer server = ESP8266WebServer(80);
+ESP8266WebServer server (80);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
 void Set_Speed(String MOTOR, int SPEED) {
